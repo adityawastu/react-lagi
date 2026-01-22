@@ -33,7 +33,7 @@ const Navigation = (props) => {
   if (type === "login") {
     return (
       <p className="mt-3 text-sm text-center">
-        "Belum Punya Akun? "
+        Belum Punya Akun?
         <Link to="/register" className="text-blue-800 font-bold">
           Register
         </Link>
@@ -42,7 +42,7 @@ const Navigation = (props) => {
   } else {
     return (
       <p className="mt-3 text-sm text-center">
-        "sudah Punya Akun? "
+        sudah Punya Akun?
         <Link to="/login" className="text-blue-800 font-bold">
           Login
         </Link>
