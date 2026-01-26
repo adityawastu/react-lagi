@@ -1,18 +1,30 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useRef, useState } from "react";
 import Button from "../assets/components/Elements/Button";
 import CartProduct from "../assets/components/Fragments/CardProduct";
 import { getProducts } from "../services/product.service";
+import { getUsername } from "../services/auth.service";
 
-const email = localStorage.getItem("email");
+const token = localStorage.getItem("token");
 
 const ProductsPage = () => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [products, setProducts] = useState([]);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUsername(getUsername(token));
+    } else {
+      window.location.href = "/login";
+    }
   }, []);
 
   useEffect(() => {
@@ -41,18 +53,12 @@ const ProductsPage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("email");
-    localStorage.removeItem("password");
+    localStorage.removeItem("token");
     window.location.href = "/login";
   };
 
   //use reff
   const cartRef = useRef(JSON.parse(localStorage.getItem("cart")) || []);
-
-  const handleAddToCartRef = (id) => {
-    cartRef.current = [...cartRef.current, { id, qty: 1 }];
-    localStorage.setItem("cart", JSON.stringify(cartRef.current));
-  };
 
   const totalPriceRef = useRef(null);
   useEffect(() => {
@@ -66,7 +72,7 @@ const ProductsPage = () => {
   return (
     <>
       <div className="flex justify-end h-15 bg-blue-800 text-white items-center px-10">
-        {email}
+        {username}
         <Button classname="bg-black ml-5" onClick={handleLogout}>
           Log Out
         </Button>
