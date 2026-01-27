@@ -7,6 +7,9 @@ import RegisterPage from "./pages/register.jsx";
 import ErrorPage from "./pages/error.jsx";
 import ProductsPage from "./pages/products.jsx";
 import TimerComponent from "./pages/timer.jsx";
+import Profile from "./pages/profile.jsx";
+import ProfilePage from "./pages/profile.jsx";
+import DetailProductPage from "./pages/detaiProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "/timer",
     element: <TimerComponent />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
+  },
+  {
+    path: "/product/:id",
+    element: <DetailProductPage />,
   },
 ]);
 
